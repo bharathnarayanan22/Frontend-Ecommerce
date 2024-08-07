@@ -83,56 +83,74 @@ body, html{
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.cartItems {
+    display: flex;
+    justify-content: space-between; 
+    margin: 1%;
+    margin-top: 20px;
+    gap: 20px;
+}
 
 .cart {
-    margin-top:200px;
-    margin: 1%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 2; 
+}
+
+.priceDetails {
+    background-color: #222; 
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1; 
+    margin-top: 0; 
+    height: auto; 
 }
 
 .cart-card {
     display: flex;
     align-items: center;
-    background-color: #fff;
-    color: black;
-    border: 5px solid black;
-    width: 150%;
-    height: 100px;
-    padding: 10px;
-    gap: 10px;
+    background-color: #333; 
+    color: #fff; 
+    border: 2px solid #555; 
+    width: 100%;
+    max-width: 400px; 
+    height: 120px;
+    padding: 15px;
+    gap: 15px;
+    border-radius: 10px;
 }
 
 .cart-card img {
-    width: 12%;
-    height: 80px;
-    margin-right: 10px;
+    width: 15%;
+    height: 100px;
     object-fit: cover;
-    margin-right: 10%;
-    margin-left: 5%;
+    border-radius: 5px;
 }
 
 .title {
     font-weight: bolder;
+    color: #e0e0e0; 
     margin-bottom: 10px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .price {
     margin-top: 10px;
     font-weight: bold;
+    color: #f0f0f0; 
 }
 
-.cartItems {
-    display: flex;
-    gap: 40%
+.priceDetails div {
+    margin-bottom: 10px;
 }
 
-.priceDetails{
-    background-color: #fff;
-    color: black;
-    padding: 1%;
-    border-radius:5% ;
-    margin-top: 20%;
-    height: 200px;
+.priceDetails hr {
+    border: 1px solid #555; 
 }
