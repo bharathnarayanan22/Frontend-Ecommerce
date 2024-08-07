@@ -1,16 +1,23 @@
 import React, { useState } from "react"
 import { Provider } from "react-redux";
-import Header from "./components/Header";
 import Products from "./components/Products";
+import HomeLayout from "./components/HomeLayout";
 import "./App.css"
 import store from "./redux/store";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Cart from "./components/Cart";
 
 const App = () => {
-  const [cart, setCart] = useState([])
   return (
     <Provider store={store}>
-      <Header cartLength={cart.length} />
-      <Products setCart={setCart} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomeLayout />}>
+            <Route path='/' element={<Products />} />
+            <Route path='/cart' element={<Cart/>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   )
 }

@@ -1,12 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/cartSlice";
+import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
+    const cartItems = useSelector((state) => state.cart.items);
+    const isInCart = cartItems.find((el) => el.id === props.item.id);
+    console.log(isInCart);
     const dispatch = useDispatch();
     const handleAdd = () => {
-        console.log("Added to cart:", props.item);
-        // props.setCart((prev) => [...prev, props.item])
         dispatch(addItem(props.item));
     }
     return (
@@ -19,7 +21,9 @@ const ProductCard = (props) => {
                 <p>{props.item.description}</p>
                 <div style={{ textAlign: "center" }}>
                     <div>Price: ${props.item.price}</div>
-                    <button onClick={handleAdd}>Add to Cart</button>
+                    {isInCart ? (
+                        <Link className='but' to='/cart'>Go to Cart</Link>
+                    ):(<button className="but" onClick={handleAdd}>Add to Cart</button>)}
                 </div>
             </div>
         </>

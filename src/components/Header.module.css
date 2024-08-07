@@ -5,6 +5,8 @@
     color: black;
     padding: 13px; 
     border-radius: 5px;
+    margin: 0.9%;
+    box-shadow: 0 0 15px 0 rgba(255, 215, 0, 0.5);
 }
 
 .innerHead{
@@ -19,15 +21,23 @@
 
 .headerItems {
     display: flex;
-    justify-content: space-evenly;
-    gap: 100px;
+    gap: 80px;
     padding: 3px;
     font-size: medium;
     font-weight: bold;
 }
 
+.headerItems a {
+    text-decoration: none;
+    color: black;
+}
+
 
 .headerItems span:hover {
+    color: #666;
+    cursor: pointer;
+}
+.headerItems a:hover {
     color: #666;
     cursor: pointer;
 }
