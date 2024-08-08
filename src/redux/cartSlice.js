@@ -10,8 +10,11 @@ const cartSlice = createSlice({
             console.log(action);
             state.items.push(action.payload);
         },
+        setCart: (state, action) => {
+            state.items = action.payload;
+        }
     }
 });
 
-export const { addItem } = cartSlice.actions;
+export const { addItem, setCart } = cartSlice.actions;
 export default cartSlice.reducer;
