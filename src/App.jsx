@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Provider, useDispatch } from "react-redux";
 import Products from "./components/Products";
+import Register from "./components/Register";
 import HomeLayout from "./components/HomeLayout";
 import "./App.css"
 import store from "./redux/store";

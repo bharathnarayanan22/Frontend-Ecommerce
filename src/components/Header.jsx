@@ -19,7 +19,7 @@ const Header = () => {
     const getCartItems = async () => {
         const res = await axios.get("http://localhost:3000/cart/getCartItems", {
             headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmE4YTUwZDY3MmQ4YzI5ODY4YjhhYzYiLCJpYXQiOjE3MjMxMDQwOTUsImV4cCI6MTcyMzE5MDQ5NX0.BC5QbQrzXzwr7yVnKQAkMELfEcb9xtLTLnCwiIwdO0Q"
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmE4YTUwZDY3MmQ4YzI5ODY4YjhhYzYiLCJpYXQiOjE3MjMxMzAzNDIsImV4cCI6MTcyMzIxNjc0Mn0.sPzDym78E4mAj_DvEImA-uN-tRMAVpL_YrvqbsVW7BA"
             }
         });
         console.log(res.data);
