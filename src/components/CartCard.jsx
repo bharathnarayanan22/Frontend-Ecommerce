@@ -3,42 +3,28 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const CartCard = (props) => {
-    const { item, cartData } = props
+    const { item } = props
     const token = useSelector(state => state.user.token);
-    console.log(cartData);
 
-
-    let initialQuantity = 1;
-    if (cartData && cartData.products && cartData.products.length > 0) {
-        for (const product of cartData.products) {
-            if (product.product_id === item.product_id) {
-                console.log(product.quantity)
-                initialQuantity = product.quantity;
-                break;
-            }
-        }
-    }
-    console.log(initialQuantity);
-    const [quantity, setQuantity] = useState(initialQuantity);
+    const [quantity, setQuantity] = useState(item.quantity);
 
     const incrementItem = async () => {
-        console.log(item.product_id)
         const payload = {
-            products: [{
-                product_id: props.item.product_id,
-                quantity: quantity + 1,
-            }]
+          products: [{
+            product_id: item.product_id,
+            quantity: quantity + 1,
+          }]
         }
-        await axios.post("http://localhost:3000/cart/addToCart", payload, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        });
+        const res = await axios.post("http://localhost:3000/cart/addToCart", payload, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        })
+        setQuantity(quantity + 1)
+        console.log("==> result", res);
+      };
 
-        setQuantity(quantity + 1);
-        console.log(quantity)
-        // console.log(res.data)
-    }
+
 
     const decrementItem = async () => {
         if (quantity > 1) {
