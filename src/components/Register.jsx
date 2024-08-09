@@ -1,21 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from "react-hot-toast";
+//import toast from "react-hot-toast";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './slide.css';
+import { useDispatch } from 'react-redux';
+import { setToken } from "../redux/userSlice";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: '',
     isSignUp: false
   });
 
-  const { name, email, password, role, isSignUp } = formData;
+  const { name, email, password, isSignUp } = formData;
 
   const handleFormToggle = () => {
     setFormData({ ...formData, isSignUp: !isSignUp });
@@ -25,57 +29,34 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const apiUrl = isSignUp ? 'http://localhost:3000/users/register' : 'http://localhost:3000/users/login';
-  //   const requestData = { name, email, password, role };
-
-  //   try {
-  //     const response = await axios.post(apiUrl, requestData);
-
-  //     if (isSignUp) {
-  //       console.log(response.data.message);
-  //       setFormData({ ...formData, isSignUp: false });
-  //     } else {
-  //       const { token, userId } = response.data;
-  //       localStorage.setItem('token', token);
-  //       localStorage.setItem('userId', userId);
-  //       navigate('/dashboard');
-  //     }
-  //   } catch (error) {
-  //     console.error(`${isSignUp ? 'Signup' : 'Login'} failed:`, error);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // const payload = {
+    //   email:"bharath@gmail.com",
+    //   password:"1234"
+    // }
   
-    const apiUrl = isSignUp ? 'http://localhost:3000/users/register' : 'http://localhost:3000/users/login';
-    const requestData = { name, email, password, role };
+    const apiUrl = isSignUp ? 'http://localhost:3000/users/signup' : 'http://localhost:3000/users/login';
+    const requestData = { name, email, password };
   
     try {
-      const toastId = toast.loading("Entering");
       const response = await axios.post(apiUrl, requestData);
-  
+      console.log("login=>", response)
       if (isSignUp) {
         console.log(response.data.message);
         setFormData({ ...formData, isSignUp: false });
-        toast.success("Signed Up Successfully", { id: toastId });
       } else {
-        const { token, userId } = response.data;
+        const { token } = response.data;
         localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        toast.success("Logged In Successfully", { id: toastId });
-        navigate('/dashboard');
+        dispatch(setToken(token))
+        await toast.success(`${isSignUp ? 'Signup' : 'Login'} Successfull` );
+        navigate('/');
       }
     } catch (error) {
       console.error(`${isSignUp ? 'Signup' : 'Login'} failed:`, error);
-      if (isSignUp) {
-        toast.error("Signup Failed");
-      } else {
-        toast.error("Login Failed");
-      }
+      toast.error(`${isSignUp ? 'Signup' : 'Login'} failed`);
     }
   };
 
@@ -88,11 +69,6 @@ const Register = () => {
             <input type="text" placeholder="Name" name="name" value={name} onChange={handleChange} required />
             <input type="email" placeholder="Email" name="email" value={email} onChange={handleChange} required />
             <input type="password" placeholder="Password" name="password" value={password} onChange={handleChange} required />
-            <select name="role" value={role} onChange={handleChange} required>
-              <option value="">Select a role</option>
-              <option value="donor">donor</option>
-              <option value="volunteer">volunteer</option>
-            </select>
             <button type="submit">Register</button>
           </form>
         </div>
@@ -124,6 +100,7 @@ const Register = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

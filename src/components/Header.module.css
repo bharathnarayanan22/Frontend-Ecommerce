@@ -22,7 +22,7 @@
 .headerItems {
     display: flex;
     gap: 80px;
-    padding: 3px;
+    padding: 0px;
     font-size: medium;
     font-weight: bold;
 }

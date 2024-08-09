@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import CartCard from "./CartCard";
@@ -5,12 +6,31 @@ import axios from "axios";
 
 const Cart = () => {
     const cartItems = useSelector((state) => state.cart.items);
+    const token = useSelector(state => state.user.token);
+
+    const [cartData, setCartData] = useState({});
+
+    useEffect(() => {
+        const fetchCartData = async () => {
+            try {
+                const res = await axios.get("http://localhost:3000/cart/getCartItems", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
+                setCartData(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchCartData();
+    }, [token]);
 
     return (
         <div className="cartItems">
             <div className="cart">
                 {cartItems.map((product) => (
-                    <CartCard key={product.id} item={product} />
+                    <CartCard key={product.id} item={product} cartData={cartData} />
                 ))}
             </div>
             <div className="priceDetails">

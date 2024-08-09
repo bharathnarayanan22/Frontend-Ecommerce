@@ -4,7 +4,7 @@ body, html{
 }
 
 .product-card{
-    width: 300px;
+    width: 340px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -158,4 +158,8 @@ body, html{
 
 .priceDetails hr {
     border: 1px solid #555; 
+}
+
+.quantity button:hover{
+    color: black
 }

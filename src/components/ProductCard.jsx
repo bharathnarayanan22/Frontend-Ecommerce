@@ -7,6 +7,7 @@ import axios from "axios";
 const ProductCard = (props) => {
     const cartItems = useSelector((state) => state.cart.items);
     const isInCart = cartItems.find((el) => el.id === props.item.id);
+    const token = useSelector((state) => state.user.token)
     const dispatch = useDispatch();
     const payload = {
         products: [{
@@ -17,7 +18,7 @@ const ProductCard = (props) => {
     const handleAdd = async () => {
         const res = await axios.post("http://localhost:3000/cart/addToCart", payload, {
             headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmE4YTUwZDY3MmQ4YzI5ODY4YjhhYzYiLCJpYXQiOjE3MjMwOTY0MzgsImV4cCI6MTcyMzE4MjgzOH0.sae1TSOZoefP8F783QI1oGVXQE1FvgWjcKg9PCgSviM"
+                Authorization: `Bearer ${token}`
             },
         });
         console.log(res.data)
